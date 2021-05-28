@@ -1,0 +1,4 @@
+{
+    "serverPort": 5000,
+    "mongoDBConnectionURL":"mongodb+srv://cloudmaster:cloudmaster3000@cloud.1ea2m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+}
