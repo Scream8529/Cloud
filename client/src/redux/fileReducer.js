@@ -1,17 +1,23 @@
-const TOGGLE_LOGIN_TEXT = 'TOGGLE_LOGIN_TEXT'
+const SET_FILES = 'SET_FILES'
+const SET_CURRENT_DIR = 'SET_CURRENT_DIR'
 
 const initialState = {
-   files:[]
+    files: [],
+    currentDir: null
 }
 
 
-const fileReducer = (state = initialState, action) =>{
+const fileReducer = (state = initialState, action) => {
     switch (action.type) {
-        
-    
-        default:return state
+        case SET_CURRENT_DIR:
+            return { ...state, currentDir: action.payload }
+        case SET_FILES:
+            return { ...state, files: action.payload  }
+
+        default: return state
     }
 }
-
+export const setFiles = (payload) =>({type:SET_FILES, payload})
+export const setCurrentDir = (payload) =>({type:SET_CURRENT_DIR, payload})
 
 export default fileReducer

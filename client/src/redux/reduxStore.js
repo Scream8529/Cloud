@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const reducers = combineReducers({
-    file: fileReducer,
+    files: fileReducer,
     user: userReducer
 })
 
