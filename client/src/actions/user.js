@@ -22,13 +22,19 @@ export const login = (email, password) => {
         }
     }            
 }
-export const auth = (email, password) => {
+export const auth = () => {
     return async (dispatch) =>{
         try {
+            const token = localStorage.getItem('token')
+            if (!token || token === 'undefined'){
+            return localStorage.removeItem('token')
+            
+            }
             const response = await axios.get('http://localhost:5000/api/auth/auth', 
             {headers:
                 {Authorization: `Bearer ${localStorage.getItem('token')}`}
             })
+            console.log(response)
                 dispatch(setUser(response.data.user))
                 localStorage.setItem('token', response.data.token)
         } catch (error) {
