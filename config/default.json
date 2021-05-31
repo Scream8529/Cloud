@@ -1,5 +1,6 @@
 {
     "serverPort": 5000,
     "mongoDBConnectionURL":"mongodb+srv://cloudmaster:cloudmaster3000@cloud.1ea2m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    "secretKey":"asd123eas9r8dc031m7489cy7ndqw7y3478nafet"
+    "secretKey":"asd123eas9r8dc031m7489cy7ndqw7y3478nafet",
+    "filePath": "D:\\react\\FullStack\\CloudFull\\files"
 }

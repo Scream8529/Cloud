@@ -5,7 +5,9 @@ const bcrypt = require('bcrypt')
 const {check, validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken')
 const config = require('config')
-
+const authMiddleware = require('../middleware/auth.middleware')
+const fileService = require('../services/fileService')
+const File = require('../models/File')
 
 
 router.post('/registration',
@@ -28,6 +30,7 @@ router.post('/registration',
         
         const user = new User({email, password: hashPassword})
         await user.save()
+        await fileService.createDir(File({user: user.id, name:''}))
         return res.status(200).json({message: 'User was created'})
     } catch (error) {
         console.log(error)
@@ -47,7 +50,7 @@ router.post('/login',
         if (!isPassValid){
             return res.status(400).json({message: "Invalid Password"})
         }
-        const token = jwt.sign({id: user._Id}, config.get('secretKey'), {expiresIn: '1h'})
+        const token = jwt.sign({id: user._id}, config.get('secretKey'), {expiresIn: '1h'})
         return res.json({
             token,
             user:{
@@ -65,4 +68,24 @@ router.post('/login',
     }
 })
 
+router.get('/auth', authMiddleware,
+ async (req, res) => {
+    try {
+        const user = await User.findOne({_id: req.user.id})
+        const token = jwt.sign({id: user._id}, config.get('secretKey'), {expiresIn: '1h'})
+        return res.json({
+            token,
+            user:{
+                id:user._id,
+                email: user.email,
+                diskSpace: user.diskSpace,
+                usedSpace: user.usedSpace,
+                avatar: user.avatar
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        res.send({ message: "Server error" })
+    }
+})
 module.exports = router
