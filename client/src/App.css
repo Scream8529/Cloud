@@ -22,3 +22,27 @@ a{
     text-align: center;
     font-size: 30px;
 }
+
+
+.disc{
+    width: 75%;
+    margin: 10px auto;
+}
+
+
+.fileList{
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr 1fr;
+    padding: 20px 0 ;
+    border-bottom: 1px solid black;
+}
+.file{
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr 1fr;
+    padding: 20px 0 ;
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
+.file:hover{
+    transform: scale(1.01);
+}

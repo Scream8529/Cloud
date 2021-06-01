@@ -3,7 +3,7 @@ import {setUser} from '../redux/userReducer'
 
 export const registration = async (email, password) => {
     try {
-        const response = await axios.post('http://localhost:5000/api/auth/registration', { email, password })
+        await axios.post('http://localhost:5000/api/auth/registration', { email, password })
             .then(response => { 
                 alert(response.data.message)
             })
@@ -34,7 +34,7 @@ export const auth = () => {
             {headers:
                 {Authorization: `Bearer ${localStorage.getItem('token')}`}
             })
-            console.log(response)
+                
                 dispatch(setUser(response.data.user))
                 localStorage.setItem('token', response.data.token)
         } catch (error) {
