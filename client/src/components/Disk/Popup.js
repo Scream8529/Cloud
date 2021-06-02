@@ -6,11 +6,15 @@ import {toggleIsPopup} from '../../redux/fileReducer'
 
 
 export default function Popup(props) {
+    const currentDir = useSelector(state=> state.files.currentDir)
     const [newDirName, setNewDirName] = useState('')
     const dispatch = useDispatch()
     function createDirHandler () {
-        dispatch(createDir(props.currentDir, newDirName))
-        
+        if (newDirName !== ''){
+        dispatch(createDir(currentDir, newDirName))
+        dispatch(toggleIsPopup(false))
+        setNewDirName('')
+    }
     }
     function closePopup(isPopup){
         dispatch(toggleIsPopup(isPopup))

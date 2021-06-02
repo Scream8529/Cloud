@@ -1,8 +1,16 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { addDirStack, setCurrentDir } from '../../../redux/fileReducer'
 
 export default function FileList(props) {
-    let files = useSelector(state => state.files.files)
+    const files = useSelector(state => state.files.files)
+    const curDir = useSelector(state=> state.files.currentDir)
+    const dispatch = useDispatch()
+    function openDir (dir){
+        dispatch(addDirStack(curDir))
+        dispatch(setCurrentDir(dir))
+        
+    }
     return (
         <div>
             <div className="fileList">
@@ -14,7 +22,7 @@ export default function FileList(props) {
             <div>
                 {
                     
-                    files.map(f => <div className='file' key={f._id}>
+                    files.map(f => <div onClick={f.type === 'dir' ? ()=>{openDir(f._id)} : null} className='file' key={f._id}>
                         <div>{(f.type==='dir') 
                         ?<i className="material-icons">folder_open</i>
                         :<i className="material-icons">find_in_page</i>

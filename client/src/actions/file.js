@@ -19,7 +19,7 @@ export function createDir(dirId, name){
             const response = await axios.post(`http://127.0.0.1:5000/api/files`,
             {
                 name,
-                parentId: dirId,
+                parent: dirId,
                 type:'dir'
             },
             {headers:{Authorization: `Bearer ${localStorage.getItem('token')}`}})
