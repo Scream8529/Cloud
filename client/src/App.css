@@ -41,13 +41,17 @@ a{
 }
 .file{
     display: grid;
+    position: relative;
+    overflow:hidden;
     grid-template-columns: 1fr 6fr 1fr 1fr;
-    padding: 20px 0 ;
+    height: 65px;
+    line-height: 65px;
     cursor: pointer;
     border-bottom: 1px solid black;
+    transition: background-color 0.3s ease-in ;
 }
 .file:hover{
-    transform: scale(1.01);
+    background-color: rgb(197, 197, 197);
 }
 
 .popup{
@@ -104,5 +108,25 @@ a{
     overflow-y: scroll;
     overflow-x: hidden;
     box-shadow:  0 0 10px rgba(0, 0, 0, 0.281);
+}
+
+.fileActionBtn{
+    position: absolute;
+    display: flex;
+    max-width: 0px;
+    height: 64px;
+    width: 200px;
+    overflow:hidden;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    top: 0;
+    right: 0px;
+    transition: right 0.4s ease-in-out;
+}
+.file:hover > .fileActionBtn{
+    right: 0px;
+    max-width: 200px;
+    transition: max-width 0.4s ease-in-out;
 }
 

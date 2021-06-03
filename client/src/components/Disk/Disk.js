@@ -22,7 +22,7 @@ export default function Disk() {
         dispatch(setCurrentDir(curDir))
     }
     function uploadFileToDisc(e) {
-
+        e.stopPropagation()
         e.preventDefault()
         let files = [...e.target.files]
         files.forEach(file => dispatch(uploadFile(file, currentDir)))
@@ -36,7 +36,7 @@ export default function Disk() {
                 <button onClick={() => { toggleNewDir(true) }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">folder add</i></button>
                 <input id="uploadFile" name="uploadFile" type="file" className="fileInput" onChange={(e) => { uploadFileToDisc(e) }} />
                 <label htmlFor="uploadFile" className="waves-effect waves-light btn blue darken-2">
-                        <i className="material-icons">library_add</i>
+                        <i className="material-icons">file_upload</i>
                 </label>
             </div>
             <div>
