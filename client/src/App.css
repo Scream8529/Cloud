@@ -29,7 +29,9 @@ a{
     width: 75%;
     margin: 10px auto;
 }
-
+.fileInput{
+    display:none;
+}
 
 .fileList{
     display: grid;
@@ -75,16 +77,32 @@ a{
     content: "";
     position: absolute;
     z-index: 5;
+    outline:#000000 dashed 4px;
+    outline-offset: -20px;
     width: 100%;
     height: 100%;
-    background-color: #0a0806;
-
+    background-color: #ffffff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    pointer-events:none;
+    user-select:none;
+}
+.dragFile span{
+    align-self: center;
+    font-size: 25px;
+    pointer-events:none;
+    user-select:none;
 }
 .dragLabel{
     display: block;
-    position: relative;
-    min-height: 300px;
+    padding: 3px;
     width: 100%;
+    height: 70vh;
+    position: relative;
     color: black;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-shadow:  0 0 10px rgba(0, 0, 0, 0.281);
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { uploadFile } from '../../../actions/file'
 import { addDirStack, setCurrentDir } from '../../../redux/fileReducer'
+import File from './File/File'
 
 export default function FileList(props) {
     const files = useSelector(state => state.files.files)
@@ -24,12 +25,10 @@ export default function FileList(props) {
         e.preventDefault();
         setDrag(false)
     }
-    const dragDrop=(e)=>{
+    const dragDrop = (e) => {
         e.preventDefault()
         let files = [...e.dataTransfer.files]
-        files.forEach(file=>dispatch(uploadFile(file, curDir)))
-        // dispatch(uploadFile(files))
-
+        files.forEach(file => dispatch(uploadFile(file, curDir)))
 
         setDrag(false)
     }
@@ -37,15 +36,7 @@ export default function FileList(props) {
 
 
 
-    const filesses = files.map(f => <div onClick={f.type === 'dir' ? () => { openDir(f._id) } : null} className='file' key={f._id}>
-        <div>{(f.type === 'dir')
-            ? <i className="material-icons">folder_open</i>
-            : <i className="material-icons">find_in_page</i>
-        }</div>
-        <div>{f.name}</div>
-        <div>{f.date.slice(0, 10)}</div>
-        <div>{f.size}</div>
-    </div>)
+    const filesses = files.map(f => <File key={f._id} openDir={openDir} f={f} />)
     return (
         <div>
             <div className="fileList">
@@ -57,22 +48,20 @@ export default function FileList(props) {
             <div>
 
                 <form>
-                    <input onClick={(e) => e.preventDefault()} id="fileUpload" type="file" style={{ display: 'none' }} />
                     <label
                         className="dragLabel"
-                        htmlFor='fileUpload'
                         onDragStart={e => { drugStartHandler(e) }}
                         onDragLeave={e => { drugLeaveHandler(e) }}
                         onDragOver={e => { drugStartHandler(e) }}
-                        onDrop={e=>{dragDrop(e)}}
+                        onDrop={e => { dragDrop(e) }}
 
                     >
                         {
 
                             drag
                                 ? <div className="dragFile">
-                                    1
-</div>
+                                        <span>Отпустите файлы для загрузки</span>
+                                </div>
                                 : filesses
                         }
                     </label>

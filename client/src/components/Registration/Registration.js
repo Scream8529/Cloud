@@ -4,6 +4,10 @@ import { registration } from '../../actions/user'
 export default function Registration() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const regUser =(email, password)=>{
+        
+        registration(email, password)
+    }
 
     return (
         <div className="formContent">
@@ -23,7 +27,7 @@ export default function Registration() {
                             <label htmlFor="password">Password</label>
                         </div>
                         <div>
-                            <button onClick={()=>{registration(email, password)}} className="waves-effect waves-light btn blue darken-3 col s6 offset-s6">Registration</button>
+                            <button onClick={()=>{regUser(email, password)}} className="waves-effect waves-light btn blue darken-3 col s6 offset-s6">Registration</button>
                         </div>
                     </div>
                 </form>

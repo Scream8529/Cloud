@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getFiles } from '../../actions/file'
+import { getFiles, uploadFile } from '../../actions/file'
 import FileList from './fileList/FileList'
 import Popup from './Popup'
 import { setCurrentDir, toggleIsPopup } from '../../redux/fileReducer'
@@ -10,6 +10,7 @@ export default function Disk() {
     const currentDir = useSelector(state => state.files.currentDir)
     const patch = useSelector(state => state.files.dirStack)
 
+
     useEffect(() => {
         dispatch(getFiles(currentDir))
     }, [currentDir])
@@ -18,15 +19,25 @@ export default function Disk() {
     }
     function toggleBackDir() {
         const curDir = patch.pop()
-            dispatch(setCurrentDir(curDir))
+        dispatch(setCurrentDir(curDir))
     }
+    function uploadFileToDisc(e) {
 
+        e.preventDefault()
+        let files = [...e.target.files]
+        files.forEach(file => dispatch(uploadFile(file, currentDir)))
+
+    }
     return (
         <div className="disc">
-            
+
             <div className="diskBtns">
-                <button onClick={() => { toggleBackDir() }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">backspace Назад</i></button>
-                <button onClick={() => { toggleNewDir(true) }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">folder add Добавить папку</i></button>
+                <button onClick={() => { toggleBackDir() }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">keyboard_backspace</i></button>
+                <button onClick={() => { toggleNewDir(true) }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">folder add</i></button>
+                <input id="uploadFile" name="uploadFile" type="file" className="fileInput" onChange={(e) => { uploadFileToDisc(e) }} />
+                <label htmlFor="uploadFile" className="waves-effect waves-light btn blue darken-2">
+                        <i className="material-icons">library_add</i>
+                </label>
             </div>
             <div>
                 <FileList />
