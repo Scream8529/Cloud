@@ -7,7 +7,6 @@ export function getFiles(dirId){
         try {
             const response = await axios.get(`http://127.0.0.1:5000/api/files${dirId ? '?parent='+dirId : ''}`,
             {headers:{Authorization: `Bearer ${localStorage.getItem('token')}`}})
-            console.log(response.data)
             dispatch(setFiles(response.data))
         } catch (error) {
             alert(error)
