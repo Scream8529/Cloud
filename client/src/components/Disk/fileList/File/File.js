@@ -1,11 +1,15 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { downloadFile } from '../../../../actions/file'
+import { downloadFile, deleteFile } from '../../../../actions/file'
 
 export default function File(props) {
     const dispatch = useDispatch()
     const fileDownload = (f) => {
         dispatch(downloadFile(f))
+    }
+    const deleteFileHandler =(file) =>{
+        dispatch(deleteFile(file))
+
     }
 
     return (
@@ -20,13 +24,19 @@ export default function File(props) {
             <div>{props.f.name}</div>
             <div>{props.f.date.slice(0, 10)}</div>
             <div>{props.f.size}</div>
-            {(props.f.type !== 'dir') &&
-                <div className="fileActionBtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+            {(props.f.type === 'dir') 
+            ?<div className="fileActionBtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+                    <button
+                        onClick={(e) => {e.stopPropagation();e.preventDefault(); deleteFileHandler(props.f)}}
+                        className="waves-effect waves-light btn blue darken-2"><i className="material-icons">delete</i></button>
+                </div>
+
+            :    <div className="fileActionBtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
                     <button
                         onClick={(e) => { e.preventDefault();fileDownload(props.f) }}
                         className="waves-effect waves-light btn blue darken-2"><i className="material-icons">file_download</i></button>
                     <button
-                        onClick={(e) => { e.preventDefault() }}
+                        onClick={(e) => {e.stopPropagation();e.preventDefault(); deleteFileHandler(props.f)}}
                         className="waves-effect waves-light btn blue darken-2"><i className="material-icons">delete</i></button>
                 </div>}
 

@@ -13,8 +13,9 @@ module.exports = (req,res,next) =>{
         }
         const decoded = jwt.verify(token, config.get('secretKey'))
         req.user = decoded
+        
         next()
     } catch (error) {
-        res.send({message:'Server error'})
+        res.status(401).send({message:'Server error'})
     }
 }

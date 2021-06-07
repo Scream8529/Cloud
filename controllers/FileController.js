@@ -30,7 +30,7 @@ class FileController{
     }
     async getFiles(req,res) {
         try {
-            const files = await File.find({user: req.user.id, parent: req.query.parent})
+            const files = await File.find({user: req.user.id, parent: req.query.parent}).sort('type')
             return res.json(files)
         } catch (error) {
             console.log(error)
@@ -42,7 +42,6 @@ class FileController{
     async uploadFile(req,res){
         try {
             const file = req.files.file
-
             const parent = await File.findOne({user: req.user.id, _id:req.body.parent})
             const user = await User.findOne({_id:req.user.id})
             if (user.usedSpace + file.size > user.diskSpace){
@@ -63,11 +62,14 @@ class FileController{
 
             const type = file.name.split('.').pop()
             let filePath = file.name
+            if(parent){
+                filePath = parent.path + '\\' + file.name
+            }
             const dbFile = new File({
                 name: file.name,
                 type,
                 size: file.size,
-                path: parent ? parent.path : null,
+                path: filePath,
                 parent: parent ? parent._id : null,
                 user: user._id
             })
@@ -83,13 +85,7 @@ class FileController{
     async  downloadFile(req,res){
         try {
             const file = await File.findOne({_id: req.query.id, user: req.user.id})
-            let path;
-            if (file.path){
-                path = config.get('filePath') + '\\' + req.user.id + '\\' + file.path + '\\' + file.name
-            } else {
-                path = config.get('filePath') + '\\' + req.user.id + '\\'  + file.name
-            }
-            
+            const path = config.get('filePath') + '\\' + req.user.id + '\\' + file.path + '\\' + file.name
             if (fs.existsSync(path)){
                 return res.download(path, file.name)
             }
@@ -97,6 +93,21 @@ class FileController{
         } catch (error) {
             console.log(error)
             res.status(500).json({message:"Download Error"})
+        }
+    }
+    async  deleteFile(req,res){
+        try {
+            const file = await File.findOne({_id: req.query.id, user: req.user.id})
+            if (!file){ 
+                return res.status(404).json({message: "File not found"})
+            }
+            fileService.deleteFile(file)
+            await file.remove()
+            return res.json({message:"File was deleted"})
+            // return res.status(400).json({message:'Delete file Error'})
+        } catch (error) {
+            console.log(error)
+            res.status(400).json({message:"Dir is not empty"})
         }
     }
 }
