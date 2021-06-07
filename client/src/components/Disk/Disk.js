@@ -4,6 +4,7 @@ import { getFiles, uploadFile } from '../../actions/file'
 import FileList from './fileList/FileList'
 import Popup from './Popup'
 import { setCurrentDir, toggleIsPopup } from '../../redux/fileReducer'
+import Uploader from './Uploader/Uploader'
 
 export default function Disk() {
     const dispatch = useDispatch()
@@ -43,6 +44,7 @@ export default function Disk() {
                 <FileList />
             </div>
             <Popup />
+            <Uploader />
         </div>
     )
 }

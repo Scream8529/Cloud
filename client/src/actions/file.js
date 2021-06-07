@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { setFiles, addFile, deleteFileAC } from '../redux/fileReducer'
+import { addUploadFile, toggleIsVisible } from '../redux/uploaderReducer'
 
 
 export function getFiles(dirId){
@@ -37,6 +38,9 @@ export function uploadFile(file, dirId) {
             if (dirId) {
                 formData.append('parent', dirId)
             }
+            const uploadFile= {name: file.name, progress:0}
+            dispatch(toggleIsVisible(true))
+            dispatch(addUploadFile(uploadFile))
             const response = await axios.post(`http://localhost:5000/api/files/upload`, formData, {
                 headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
                 onUploadProgress: progressEvent => {

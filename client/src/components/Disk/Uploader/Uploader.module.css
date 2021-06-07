@@ -1,0 +1,73 @@
+.uploader{
+    display: block;
+    position:fixed;
+    z-index: 6;
+    bottom: 0;
+    right: 0;
+    border-radius: 15px;
+    background-color: #1565C0;
+    width: 400px;
+    padding: 20px 10px;
+    color: rgb(255, 255, 255);
+}
+.uploader button{
+    position: absolute;
+    top:5px;
+    right: 5px;
+    
+}
+.uploader h2{
+    margin: 0 0 20px 40px;
+    font-size: 20px;
+    
+}
+.file{
+    position: relative;
+    margin-bottom: 10px;
+    padding: 15px 10px ;
+    border-radius: 20px;
+    
+    background: #8bc1ff;
+    box-shadow: 0 0  10px #001225;
+}
+.file button{
+    border-radius:50%;
+    width: 30px;
+    height: 30px;
+    font-size:10px;
+    line-height: 10px;
+     padding:0px;
+}
+.file h3{
+    font-size: 20px;
+    line-height: 20px;
+    margin: 0 0 10px;
+}
+.progressBar{
+    z-index: 6;
+    content: "";
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    line-height: 18px;
+    height: 20px;
+    border:1px solid black;
+    overflow:hidden;
+}
+.progressBar p{
+    position: absolute;
+    left: 50%;
+    z-index: 7;
+    
+}
+.progressBar span{
+    display: block;
+    content: "";
+    border-radius: 10px;
+    z-index: 6;
+    background-color: crimson;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 20px;
+}
