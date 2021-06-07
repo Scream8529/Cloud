@@ -7,14 +7,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { auth } from "./actions/user";
 import Disk from "./components/Disk/Disk";
+import { initializedAC } from "./redux/initReducer";
 
 function App() {
   const isAuth = useSelector(state => state.user.isAuth)
-  const dispatch = useDispatch()
-  function authFunc (){
-    dispatch(auth())
+  const init = useSelector(state => state.init.initialized)
+  const dispatch = useDispatch();
+  const  authFunc = async () =>{
+    await dispatch(auth())
+    dispatch(initializedAC())
   }
   useEffect(authFunc, [])
+  if (!init){
+  return <>
+  Loading......
+  </>}
+
   return (
     <div className="App">
       <NavBar />
