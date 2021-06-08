@@ -18,7 +18,7 @@ function App() {
     await dispatch(auth())
     dispatch(initializedAC())
   }
-  useEffect(authFunc, [])
+  useEffect(()=>{authFunc()}, [])
   if (!init){
   return <>
   <Loader />

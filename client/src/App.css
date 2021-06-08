@@ -135,4 +135,16 @@ a{
     left: 50vw;
     transform: translate(-50%,-50%);
 }
+.searchBox{
+    width: 250px;
+    position: relative;
+    margin-right: 20px;
+}
 
+
+.searchIcon{
+    position: absolute;
+    cursor: pointer;
+    right:0;
+    top: 0;
+}
