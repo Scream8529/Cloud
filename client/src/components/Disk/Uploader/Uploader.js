@@ -15,13 +15,14 @@ export default function Uploader() {
     
     return (
         isVisible  &&
-        <div className={style.uploader}>
+        ( files.length !==0 && <div className={style.uploader}>
             <h2>Загрузки:</h2>
             <button onClick={(e)=>{ toggleIsVisibleFalse()}} 
             className="waves-effect waves-light btn blue darken-2" style={{borderRadius:"50%"}}>X</button>
+            
             {
                 files.map(file=><File key={file.id} file={file} />)
             }
-        </div>
+        </div>)
     )
 }

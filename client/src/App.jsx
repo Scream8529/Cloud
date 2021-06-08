@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { auth } from "./actions/user";
 import Disk from "./components/Disk/Disk";
 import { initializedAC } from "./redux/initReducer";
+import Loader from "./components/Loader/Loader";
 
 function App() {
   const isAuth = useSelector(state => state.user.isAuth)
@@ -20,7 +21,7 @@ function App() {
   useEffect(authFunc, [])
   if (!init){
   return <>
-  Loading......
+  <Loader />
   </>}
 
   return (

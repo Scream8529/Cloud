@@ -129,4 +129,10 @@ a{
     max-width: 200px;
     transition: max-width 0.4s ease-in-out;
 }
+.loader{
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%,-50%);
+}
 

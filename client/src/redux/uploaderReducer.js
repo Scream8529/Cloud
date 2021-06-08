@@ -17,11 +17,14 @@ const fileReducer = (state = initialState, action) => {
         case TOGGLE_IS_VISIBLE:
             return { ...state, isVisible: action.payload }
         case ADD_UPLOAD_FILE:
-            return { ...state, files:[...state.files, {...action.payload, id: state.files.length}] }
+            return { ...state, files: [...state.files, action.payload ]}
         case REMOVE_UPLOAD_FILE:
             return { ...state, files:[...state.files.filter(file=>file.id !== action.payload)]}
         case CHANGE_UPLOAD_FILE:
-            return { ...state }
+            return { ...state, files:[ ...state.files.map(file => file.id === action.payload.id
+                ?{...file, process: action.payload.progress}
+                :{...file}
+                )]}
 
         default: return state
     }

@@ -48,12 +48,13 @@ export default function FileList(props) {
             <div>
 
                 <form>
-                    <label
+                    <div
                         className="dragLabel"
                         onDragStart={e => { drugStartHandler(e) }}
                         onDragLeave={e => { drugLeaveHandler(e) }}
                         onDragOver={e => { drugStartHandler(e) }}
                         onDrop={e => { dragDrop(e) }}
+                        
 
                     >
                         {
@@ -64,7 +65,7 @@ export default function FileList(props) {
                                 </div>
                                 : filesses
                         }
-                    </label>
+                    </div>
                 </form>
             </div>
         </div>
