@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getFiles, uploadFile } from '../../actions/file'
 import FileList from './fileList/FileList'
@@ -10,6 +10,7 @@ export default function Disk() {
     const dispatch = useDispatch()
     const currentDir = useSelector(state => state.files.currentDir)
     const patch = useSelector(state => state.files.dirStack)
+    const [view, setView] = useState('tile')
 
 
     useEffect(() => {
@@ -33,15 +34,29 @@ export default function Disk() {
         <div className="disc">
 
             <div className="diskBtns">
-                <button onClick={() => { toggleBackDir() }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">keyboard_backspace</i></button>
-                <button onClick={() => { toggleNewDir(true) }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">folder add</i></button>
-                <input id="uploadFile" name="uploadFile" type="file" className="fileInput" onChange={(e) => { uploadFileToDisc(e) }} />
-                <label htmlFor="uploadFile" className="waves-effect waves-light btn blue darken-2">
+                <div>
+                    <button onClick={() => { toggleBackDir() }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">keyboard_backspace</i></button>
+                    <button onClick={() => { toggleNewDir(true) }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">folder add</i></button>
+                    <input id="uploadFile" name="uploadFile" type="file" className="fileInput" onChange={(e) => { uploadFileToDisc(e) }} />
+                    <label htmlFor="uploadFile" className="waves-effect waves-light btn blue darken-2">
                         <i className="material-icons">file_upload</i>
-                </label>
+                    </label>
+                </div>
+                <div className="rightSideBtn">
+                    <div>
+                    {(view === 'tile') && <button onClick={() => { setView('list') }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">view_headline</i></button>}
+                    {(view === 'list') && <button onClick={() => { setView('tile') }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">view_module</i></button>}
+                    </div>    
+                        <label htmlFor="searchSelector" className="searchSelector"><select id="searchSelector">
+                            <option value="type">По типу</option>
+                            <option value="date">По дате</option>
+                            <option value="name">По Имени</option>
+                        </select></label>
+                   
+                </div>
             </div>
             <div>
-                <FileList />
+                <FileList view={view} />
             </div>
             <Popup />
             <Uploader />

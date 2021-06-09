@@ -29,6 +29,10 @@ a{
     width: 75%;
     margin: 10px auto;
 }
+.diskBtns{
+    display: flex;
+    justify-content: space-between;
+}
 .fileInput{
     display:none;
 }
@@ -38,6 +42,10 @@ a{
     grid-template-columns: 1fr 6fr 1fr 1fr;
     padding: 20px 0 ;
     border-bottom: 1px solid black;
+}
+.select{
+    width: 100px;
+    height: 20px;
 }
 .file{
     display: grid;
@@ -99,14 +107,35 @@ a{
 }
 .dragLabel{
     display: block;
+    margin-top:20px;
     padding: 3px;
     width: 100%;
-    height: 70vh;
+    height: 80vh;
     position: relative;
     color: black;
     overflow-y: scroll;
     overflow-x: hidden;
     box-shadow:  0 0 10px rgba(0, 0, 0, 0.281);
+}
+.tileContainer{
+    display: flex;
+    padding: 30px;
+    flex-wrap: wrap;
+}
+.fileTile{
+    width: 120px;
+    height: 100px;
+    padding: 15px 5px;
+    margin-bottom:15px ;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+.fileTile > i{
+    font-size: 30px;
 }
 
 .fileActionBtn{
@@ -147,4 +176,14 @@ a{
     cursor: pointer;
     right:0;
     top: 0;
+}
+.rightSideBtn{
+    display: flex;
+}
+.searchSelector{
+    display: block;
+
+}
+.searchSelector select{
+    display: flex;
 }
