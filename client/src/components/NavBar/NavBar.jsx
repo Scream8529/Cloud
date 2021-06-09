@@ -8,6 +8,7 @@ import { getFiles } from '../../actions/file'
 export default function NavBar() {
     const isAuth = useSelector(state => state.user.isAuth)
     const currentDir = useSelector(state => state.files.currentDir)
+    const searchType = useSelector(state => state.files.currentDir)
     const [search, setSearch] = useState('')
     const dispatch = useDispatch()
     const [searchTimeout, setSearchTimeout] = useState(false)
@@ -22,19 +23,19 @@ export default function NavBar() {
                 dispatch(searchFile(value))
             }, 500, e.target.value))
         } else {
-            dispatch(getFiles(currentDir))
+            dispatch(getFiles(currentDir, searchType))
         }
     }
     const clearSearchBox = () =>{
         setSearch("")
-        dispatch(getFiles(currentDir))
+        dispatch(getFiles(currentDir, searchType))
     }
     return (
         <div>
             <nav>
                 <div className="nav-wrapper blue darken-3">
                     <div className="navBarContainer">
-                        <NavLink to="/" className="brand-logo"><i className="medium material-icons">cloud_circle</i></NavLink>
+                        <NavLink to="/" className="brand-logo"><i className="material-icons" style={{fontSize:"40px"}}>cloud_circle</i></NavLink>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
                             {isAuth && <li className="searchBox" ><input
                                 type='text'

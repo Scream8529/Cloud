@@ -122,10 +122,34 @@ a{
     padding: 30px;
     flex-wrap: wrap;
 }
+.fileTile:hover > .tileActionBtn{
+    max-height: 50px;
+}
+.tileActionBtn{
+position: absolute;
+display: flex;
+justify-content: space-around;
+width: 120px;
+bottom: 0;
+max-height: 0px;
+transition: max-height 0.2s ease-in;
+}
+.tileActionBtn > button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+.fileTile:hover{
+    background-color: #c5e0ff;
+}
+
 .fileTile{
     width: 120px;
     height: 100px;
+    position: relative;
+    overflow: hidden;
     padding: 15px 5px;
+    border-radius: 5px;
     margin-bottom:15px ;
     display: flex;
     flex-direction: column;
@@ -133,6 +157,8 @@ a{
     align-items: center;
     text-align: center;
     cursor: pointer;
+transition: background-color 0.2s ease-in;
+
 }
 .fileTile > i{
     font-size: 30px;

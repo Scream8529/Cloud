@@ -75,12 +75,12 @@ export default function File(props) {
                 }</div>
                 <div>{props.f.name}</div>
                 {(props.f.type === 'dir')
-                    ? <div className="fileActionBtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+                    ? <div className="tileActionBtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
                         <button
                             onClick={(e) => { e.preventDefault(); deleteFiles() }}
                             className="waves-effect waves-light btn blue darken-2"><i className="material-icons">delete</i></button>
                     </div>
-                    : <div className="fileActionBtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+                    : <div className="tileActionBtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
                         <button
                             onClick={(e) => { e.preventDefault(); downloadFiles() }}
                             className="waves-effect waves-light btn blue darken-2"><i className="material-icons">file_download</i></button>

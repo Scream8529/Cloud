@@ -3,19 +3,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getFiles, uploadFile } from '../../actions/file'
 import FileList from './fileList/FileList'
 import Popup from './Popup'
-import { setCurrentDir, toggleIsPopup } from '../../redux/fileReducer'
+import { setCurrentDir, toggleIsPopup,changeSearchType } from '../../redux/fileReducer'
 import Uploader from './Uploader/Uploader'
 
 export default function Disk() {
     const dispatch = useDispatch()
     const currentDir = useSelector(state => state.files.currentDir)
+    const searchType = useSelector(state => state.files.searchType)
     const patch = useSelector(state => state.files.dirStack)
     const [view, setView] = useState('tile')
 
 
     useEffect(() => {
-        dispatch(getFiles(currentDir))
-    }, [currentDir])
+        dispatch(getFiles(currentDir, searchType))
+    }, [currentDir, searchType])
     function toggleNewDir(isPopup) {
         dispatch(toggleIsPopup(isPopup))
     }
@@ -28,7 +29,9 @@ export default function Disk() {
         e.preventDefault()
         let files = [...e.target.files]
         files.forEach(file => dispatch(uploadFile(file, currentDir)))
-
+    }
+    function changeType (e){
+        dispatch(changeSearchType(e.target.value))
     }
     return (
         <div className="disc">
@@ -44,13 +47,14 @@ export default function Disk() {
                 </div>
                 <div className="rightSideBtn">
                     <div>
-                    {(view === 'tile') && <button onClick={() => { setView('list') }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">view_headline</i></button>}
-                    {(view === 'list') && <button onClick={() => { setView('tile') }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons">view_module</i></button>}
+                    {(view === 'tile') && <button onClick={() => { setView('list') }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons" style={{fontSize:"30px"}}>view_headline</i></button>}
+                    {(view === 'list') && <button onClick={() => { setView('tile') }} className="waves-effect waves-light btn blue darken-2"><i className="material-icons" style={{fontSize:"30px"}}>view_module</i></button>}
                     </div>    
-                        <label htmlFor="searchSelector" className="searchSelector"><select id="searchSelector">
-                            <option value="type">По типу</option>
-                            <option value="date">По дате</option>
-                            <option value="name">По Имени</option>
+                        <label htmlFor="searchSelector" className="searchSelector" >
+                        <select value={searchType} id="searchSelector" onChange={(e)=>{changeType(e)}}>
+                            <option value={"type"}>По типу</option>
+                            <option value={"date"}>По дате</option>
+                            <option value={"name"}>По Имени</option>
                         </select></label>
                    
                 </div>

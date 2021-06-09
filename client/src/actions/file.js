@@ -3,10 +3,20 @@ import { setFiles, addFile, deleteFileAC } from '../redux/fileReducer'
 import { addUploadFile, changeUploadFile, toggleIsVisible } from '../redux/uploaderReducer'
 
 
-export function getFiles(dirId){
+export function getFiles(dirId, searchType){
     return async dispatch =>{
         try {
-            const response = await axios.get(`http://127.0.0.1:5000/api/files${dirId ? '?parent='+dirId : ''}`,
+            let uri;
+            if (dirId) {
+                uri = `http://127.0.0.1:5000/api/files?parent=${dirId}`
+            }
+            if (searchType) {
+                uri = `http://127.0.0.1:5000/api/files?sort=${searchType}`
+            }
+            if(dirId && searchType){
+                uri = `http://127.0.0.1:5000/api/files?parent=${dirId}&sort=${searchType}`
+            }
+            const response = await axios.get(uri, 
             {headers:{Authorization: `Bearer ${localStorage.getItem('token')}`}})
             dispatch(setFiles(response.data))
         } catch (error) {
