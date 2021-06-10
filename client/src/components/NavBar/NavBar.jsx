@@ -4,11 +4,13 @@ import { NavLink } from 'react-router-dom'
 import { logout } from '../../redux/userReducer'
 import { searchFile } from '../../actions/file'
 import { getFiles } from '../../actions/file'
+import avatar from '../../assets/imgs/avatar.png'
 
-export default function NavBar() {
+export default function NavBar(props) {
     const isAuth = useSelector(state => state.user.isAuth)
     const currentDir = useSelector(state => state.files.currentDir)
-    const searchType = useSelector(state => state.files.currentDir)
+    const currentUser = useSelector(state => state.user.currentUser)
+    const searchType = useSelector(state => state.files.searchType)
     const [search, setSearch] = useState('')
     const dispatch = useDispatch()
     const [searchTimeout, setSearchTimeout] = useState(false)
@@ -18,30 +20,27 @@ export default function NavBar() {
         if (searchTimeout) {
             clearTimeout(searchTimeout)
         }
-        if (e.target.value !== '') {
+        if (e.target.value === '') {
+            console.log(currentDir, searchType)
+            dispatch(getFiles(currentDir, searchType))
+        } else {
             setSearchTimeout(setTimeout((value) => {
                 dispatch(searchFile(value))
             }, 500, e.target.value))
-        } else {
-            dispatch(getFiles(currentDir, searchType))
+            
         }
     }
-    const clearSearchBox = () =>{
+    const clearSearchBox = () => {
         setSearch("")
         dispatch(getFiles(currentDir, searchType))
     }
     return (
         <div>
-        <ul id="dropdown1" class="dropdown-content">
-  <li><a href="#!">one</a></li>
-  <li><a href="#!">two</a></li>
-  <li class="divider"></li>
-  <li><a href="#!">three</a></li>
-</ul>
+
             <nav>
                 <div className="nav-wrapper blue darken-3">
                     <div className="navBarContainer">
-                        <NavLink to="/" className="brand-logo"><i className="material-icons" style={{fontSize:"40px"}}>cloud_circle</i></NavLink>
+                        <NavLink to="/" className="brand-logo"><i className="material-icons" style={{ fontSize: "40px" }}>cloud_circle</i></NavLink>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
                             {isAuth && <li className="searchBox" ><input
                                 type='text'
@@ -54,8 +53,10 @@ export default function NavBar() {
 
                             {!isAuth && <li><NavLink to="/login">Login</NavLink></li>}
                             {!isAuth && <li><NavLink to="/registration">Registration</NavLink></li>}
-                            {isAuth && <li><div style={{ cursor: 'pointer' }} onClick={() => { dispatch(logout()) }}>Logout</div></li>}
-                            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+                            {isAuth && <li><NavLink to="/profile" className="navbarAvatarContainer"><img className="navbarAvatar" src={currentUser.avatar ?"http://localhost:5000/"+ currentUser.avatar  :avatar} /></NavLink></li>}
+                            {isAuth && <li style={{marginLeft:'20px'}}><div style={{ cursor: 'pointer' }} onClick={() => { dispatch(logout()) }}>Logout</div></li>}
+                            
+                            
                         </ul>
                     </div>
 

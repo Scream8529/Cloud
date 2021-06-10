@@ -3,7 +3,7 @@ import File from '../File/File'
 
 export default function List(props) {
 
-    const filesList = props.files.map(f => <File key={f.id} openDir={props.openDir} f={f} view={props.view} />)
+    const filesList = props.files.map(f => <File key={f._id} openDir={props.openDir} f={f} view={props.view} />)
     return (<>
 
         {(props.view === "tile") &&

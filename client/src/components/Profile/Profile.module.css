@@ -1,0 +1,21 @@
+h2, h3{
+    text-align: center;
+    margin: 20px 0;
+    font-size: 30px;
+}
+h3{
+    font-size: 20px;
+}
+.avatarContainer{
+    border: 2px solid rgb(119, 205, 255);
+    border-radius: 20px;
+    padding: 5px 20px 20px;
+}
+.settingContainer{
+    width: 80%;
+    margin: 0 auto;
+}
+.avatar{
+    border-radius: 5px;
+    max-height: 200px;
+}

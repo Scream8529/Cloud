@@ -43,3 +43,31 @@ export const auth = () => {
         }
     }            
 }
+export function uploadAvatar (file){
+    return async dispatch =>{
+        try {
+            const formData = new FormData()
+            formData.append('file', file)
+            const response = await axios.post(`http://127.0.0.1:5000/api/files/avatar`, formData, 
+            {headers:{Authorization: `Bearer ${localStorage.getItem('token')}`}})
+            console.log(response)
+            dispatch(setUser(response.data))
+
+
+        } catch (error) {
+            alert(error)
+        }
+    }
+}
+export function deleteAvatar (){
+    return async dispatch =>{
+        try {
+            const response = await axios.delete(`http://127.0.0.1:5000/api/files/avatar`,
+            {headers:{Authorization: `Bearer ${localStorage.getItem('token')}`}})
+
+            dispatch(setUser(response.data))
+        } catch (error) {
+            alert(error)
+        }
+    }
+}

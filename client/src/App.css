@@ -213,3 +213,21 @@ transition: background-color 0.2s ease-in;
 .searchSelector select{
     display: flex;
 }
+.navbarAvatarContainer{
+    padding: 0;
+    display: flex;
+    
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    transform: translateY(13px);
+}
+.navbarAvatar{
+    min-width: 40px;
+    max-width: 40px;
+ 
+    
+
+}

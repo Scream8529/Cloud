@@ -9,6 +9,7 @@ import { auth } from "./actions/user";
 import Disk from "./components/Disk/Disk";
 import { initializedAC } from "./redux/initReducer";
 import Loader from "./components/Loader/Loader";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   const isAuth = useSelector(state => state.user.isAuth)
@@ -36,6 +37,7 @@ function App() {
           </Switch>
           : <Switch>
             <Route exact path="/" component={() => (<Disk />)} />
+            <Route exact path="/profile" component={() => (<Profile />)} />
             <Redirect to="/" />
           </Switch>
       }
