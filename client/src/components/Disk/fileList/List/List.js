@@ -1,7 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import Loader from '../../../Loader/Loader'
 import File from '../File/File'
 
 export default function List(props) {
+    const isLoading = useSelector(state => state.files.isLoading)
 
     const filesList = props.files.map(f => <File key={f._id} openDir={props.openDir} f={f} view={props.view} />)
     return (<>
@@ -9,7 +12,8 @@ export default function List(props) {
         {(props.view === "tile") &&
 
             <div className="tileContainer">
-                {filesList}
+            {isLoading ? <Loader />
+                :(props.files.length > 0 )?filesList: <div>Файлов не найдено</div>}
 
             </div>}
         {
@@ -22,9 +26,8 @@ export default function List(props) {
                     <div>Размер</div>
                 </div>
                 <div>
-                    {
-                        filesList
-                    }
+                {isLoading ? <Loader />
+                :(props.files.length > 0 )?filesList: <div>Файлов не найдено</div>}
                 </div>
             </div>}
     </>)

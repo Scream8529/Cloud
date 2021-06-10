@@ -33,9 +33,9 @@ export default function Profile() {
     const sendAvatar = (e) =>{
         if (img === null){
             return alert("Сначала выберете файлы")
-        }
+        } if (currentUser.avatar){
         dispatch(deleteAvatar())
-        dispatch(uploadAvatar(img))
+}        dispatch(uploadAvatar(img))
         
     }
     const deleteAvatarHandle = () =>{
@@ -72,13 +72,7 @@ export default function Profile() {
                     </form>
                 </div>
             </div>
-            <div>
-                Настройки входа(смена логина или пароля)
-            </div>
-
-            <div>
-                еще какие то настройки
-            </div>
+            
         </div>
     )
 }

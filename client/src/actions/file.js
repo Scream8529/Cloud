@@ -1,11 +1,12 @@
 import axios from 'axios'
-import { setFiles, addFile, deleteFileAC } from '../redux/fileReducer'
+import { setFiles, addFile, deleteFileAC,changeIsLoading } from '../redux/fileReducer'
 import { addUploadFile, changeUploadFile, toggleIsVisible } from '../redux/uploaderReducer'
 
 
 export function getFiles(dirId, searchType){
     return async dispatch =>{
         try {
+            dispatch(changeIsLoading(true))
             let uri;
             if (dirId) {
                 uri = `http://127.0.0.1:5000/api/files?parent=${dirId}`
@@ -19,6 +20,8 @@ export function getFiles(dirId, searchType){
             const response = await axios.get(uri, 
             {headers:{Authorization: `Bearer ${localStorage.getItem('token')}`}})
             dispatch(setFiles(response.data))
+            dispatch(changeIsLoading(false))
+
         } catch (error) {
             alert(error)
         }
@@ -73,6 +76,8 @@ export function uploadFile(file, dirId) {
 export function downloadFile(file) {
     return async dispatch => {
         try {
+            dispatch(changeIsLoading(true))
+
             const response = await fetch(`http://localhost:5000/api/files/download?id=${file._id}`, {
                 headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
                 
@@ -88,6 +93,7 @@ export function downloadFile(file) {
                 } else {
                     alert('Ошибка загрузки файла')
                 }
+            dispatch(changeIsLoading(false))
 
         } catch (e) {
             alert(e)
@@ -97,11 +103,14 @@ export function downloadFile(file) {
 export function deleteFile(file) {
     return async dispatch => {
         try {
+            dispatch(changeIsLoading(true))
             
             const response = await axios.delete(`http://localhost:5000/api/files?id=${file._id}`, {
                 headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
             dispatch(deleteFileAC(file._id))
             alert(response.data.message)
+            dispatch(changeIsLoading(false))
+
         } catch (e) {
             alert(e.response)
         }
@@ -109,10 +118,13 @@ export function deleteFile(file) {
 }
 export function searchFile(searchName){
     return async dispatch =>{
-        try {
+            dispatch(changeIsLoading(true))
+            try {
             const response = await axios.get(`http://127.0.0.1:5000/api/files/search?search=${searchName}`,
             {headers:{Authorization: `Bearer ${localStorage.getItem('token')}`}})
             dispatch(setFiles(response.data))
+            dispatch(changeIsLoading(false))
+
         } catch (error) {
             alert(error)
         }
