@@ -5,6 +5,8 @@ const FileController = require('../controllers/FileController')
 
 router.post("", authMiddleware, FileController.createDir)
 router.post("/upload", authMiddleware, FileController.uploadFile)
+router.post("/avatar", authMiddleware, FileController.uploadAvatar)
+router.delete("/avatar", authMiddleware, FileController.deleteAvatar)
 router.get("", authMiddleware, FileController.getFiles)
 router.get("/download", authMiddleware, FileController.downloadFile)
 router.delete("/", authMiddleware, FileController.deleteFile)

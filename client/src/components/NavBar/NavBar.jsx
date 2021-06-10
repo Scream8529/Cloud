@@ -32,6 +32,12 @@ export default function NavBar() {
     }
     return (
         <div>
+        <ul id="dropdown1" class="dropdown-content">
+  <li><a href="#!">one</a></li>
+  <li><a href="#!">two</a></li>
+  <li class="divider"></li>
+  <li><a href="#!">three</a></li>
+</ul>
             <nav>
                 <div className="nav-wrapper blue darken-3">
                     <div className="navBarContainer">
@@ -49,6 +55,7 @@ export default function NavBar() {
                             {!isAuth && <li><NavLink to="/login">Login</NavLink></li>}
                             {!isAuth && <li><NavLink to="/registration">Registration</NavLink></li>}
                             {isAuth && <li><div style={{ cursor: 'pointer' }} onClick={() => { dispatch(logout()) }}>Logout</div></li>}
+                            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
                         </ul>
                     </div>
 
