@@ -41,7 +41,7 @@ export default function NavBar(props) {
                 <div className="nav-wrapper blue darken-3">
                     <div className="navBarContainer">
                         <NavLink to="/" className="brand-logo"><i className="material-icons" style={{ fontSize: "40px" }}>cloud_circle</i></NavLink>
-                        <ul id="nav-mobile" className="right hide-on-med-and-down">
+                        <ul id="nav-mobile" className="right">
                             {isAuth && <li className="searchBox" ><input
                                 type='text'
                                 onChange={(e) => { searchInputHandler(e) }}
